@@ -96,15 +96,20 @@ public class MovieCollection {
 
 
     public void searchCast(){
-        ArrayList<Movie> titles2 = new ArrayList<>();
+        ArrayList<String> titles2 = new ArrayList<>();
         System.out.println("enter a person to search for (first or last name): ");
         String name = scanner.nextLine();
-        String temp = "";
         for(int i = 0; i < movies.size(); i++ ){
-            temp = "";
-            if(movies.get(i).getCast().toLowerCase().contains(name)){
-
-            }
+            //ArrayList<String> castname = new ArrayList<>();
+            String[] parts = movies.get(i).getCast().split("\\|");
+//            for(String cast : parts){
+//                System.out.println(cast);
+//            }
+        }
+        for(int j = 0; j < parts.length ; j++){}
+        selectionSortWordList2(titles2);
+        for(int i = 0; i < titles2.size() ; i++){
+            System.out.println(i+1 + titles2.get(i));
         }
 
     }
@@ -120,6 +125,21 @@ public class MovieCollection {
 
 
             Movie temp = words.get(i);
+            words.set(i,words.get(minIndex));
+            words.set(minIndex,temp);
+        }
+    }
+    public static void selectionSortWordList2(ArrayList<String> words){
+        for (int i = 0; i < words.size() - 1; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < words.size(); j++) {
+                if (words.get(j).compareTo(words.get(minIndex))< 0){
+                    minIndex = j;
+                }
+            }
+
+
+            String temp = words.get(i);
             words.set(i,words.get(minIndex));
             words.set(minIndex,temp);
         }
