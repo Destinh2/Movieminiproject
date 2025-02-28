@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class MovieCollection {
@@ -96,21 +97,68 @@ public class MovieCollection {
 
 
     public void searchCast(){
+        ArrayList<String>parts = new ArrayList<>();
         ArrayList<String> titles2 = new ArrayList<>();
+        int counter2 = 0;
         System.out.println("enter a person to search for (first or last name): ");
         String name = scanner.nextLine();
         for(int i = 0; i < movies.size(); i++ ){
-            //ArrayList<String> castname = new ArrayList<>();
-            String[] parts = movies.get(i).getCast().split("\\|");
-//            for(String cast : parts){
-//                System.out.println(cast);
-//            }
+              String[] parts2 = movies.get(i).getCast().split("\\|");
+                for(String cast : parts2){
+                    parts.add(cast.toLowerCase());
+                }
         }
-        for(int j = 0; j < parts.length ; j++){}
-        selectionSortWordList2(titles2);
-        for(int i = 0; i < titles2.size() ; i++){
-            System.out.println(i+1 + titles2.get(i));
+        for(int j = 0; j < parts.size() ; j++){}
+        selectionSortWordList2(parts);
+        int counter4 = 0;
+        for(int i = 0; i < parts.size() ; i++){
+            if(parts.get(i).contains(name)){
+                int counterrr = 0;
+                for(int z = 0; z < titles2.size() ; z++){
+                    if(titles2.get(z).equals(parts.get(i))){
+                        counterrr++;
+                    }
+                }
+                if(counterrr == 0){
+                    titles2.add(parts.get(i));
+                    System.out.println(1+counter2 + ". " + parts.get(i));
+                    counter2++;
+                }
+                counter4++;
+            }
         }
+        if(counter4 == 0){
+            System.out.println("NO results match this");
+        } else{
+            ArrayList<Movie> moviesActor = new ArrayList<>();
+            System.out.println("Which would you like to see all the movies for");
+            System.out.print("enter number: ");
+            int searchName = scanner.nextInt();
+            int counter3 = 0;
+            //System.out.println(movies.size());
+            selectionSortWordList(movies);
+            for (Movie movie : movies) {
+//            System.out.println(movie.getName());
+//            System.out.
+                if (movie.getCast().toLowerCase().contains(titles2.get(searchName - 1))) {
+                    System.out.println(1 + counter3 + ". " + movie.getName());
+                    moviesActor.add(movie);
+                    counter3++;
+                }
+            }
+            System.out.println("which movie would you like to learn more about?");
+            System.out.print("enter number: ");
+            int searchName2 = scanner.nextInt();
+            Movie finalname = moviesActor.get(searchName2-1);
+            System.out.println("title: " + finalname.getName());
+            System.out.println("runtime: " + finalname.getRuntime() + " minutes");
+            System.out.println("Directed by:" + finalname.getDirector());
+            System.out.println("cast: " + finalname.getCast());
+            System.out.println("overview: " + finalname.getOverview());
+            System.out.println("user rating: " + finalname.getUserRating());
+
+        }
+
 
     }
 
